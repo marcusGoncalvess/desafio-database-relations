@@ -16,23 +16,21 @@ class OrdersProducts {
   @PrimaryGeneratedColumn()
   id: string;
 
+  @Column()
+  product_id: string;
+
+  @Column()
+  order_id: string;
+
   @ManyToOne(() => Order, order => order.order_products, {
     cascade: ['insert', 'update'],
   })
   @JoinColumn({ name: 'order_id' })
   order: Order;
 
-  @ManyToOne(() => Product, product => product.order_products, {
-    cascade: ['insert', 'update'],
-  })
+  @ManyToOne(() => Product, product => product.order_products)
   @JoinColumn({ name: 'product_id' })
   product: Product;
-
-  @Column()
-  product_id: string;
-
-  @Column()
-  order_id: string;
 
   @Column('decimal')
   price: number;

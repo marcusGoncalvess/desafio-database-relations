@@ -16,18 +16,20 @@ interface IRequest {
   customer_id: string;
   products: IProduct[];
 }
+const order = await this.ormRepository.create({ customer_id: customer });
 
 @injectable()
 class CreateOrderService {
   constructor(
+    @inject('OrdersRepository')
     private ordersRepository: IOrdersRepository,
+    @inject('ProductsRepository')
     private productsRepository: IProductsRepository,
+    @inject('CustomersRepository')
     private customersRepository: ICustomersRepository,
   ) {}
 
-  public async execute({ customer_id, products }: IRequest): Promise<Order> {
-    // TODO
-  }
+  public async execute({ customer_id, products }: IRequest): Promise<Order> {}
 }
 
 export default CreateOrderService;

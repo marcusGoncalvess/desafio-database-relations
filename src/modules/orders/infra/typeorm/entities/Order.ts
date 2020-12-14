@@ -6,6 +6,7 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
+  Column,
 } from 'typeorm';
 
 import Customer from '@modules/customers/infra/typeorm/entities/Customer';
@@ -15,6 +16,9 @@ import OrdersProducts from '@modules/orders/infra/typeorm/entities/OrdersProduct
 class Order {
   @PrimaryGeneratedColumn()
   id: string;
+
+  @Column()
+  customer_id: string;
 
   @ManyToOne(() => Customer)
   @JoinColumn({ name: 'customer_id' })
