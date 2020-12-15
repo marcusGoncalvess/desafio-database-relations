@@ -5,7 +5,7 @@ export default class CreateOrdersProducts1607920128122
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'order_products',
+        name: 'orders_products',
         columns: [
           {
             name: 'id',
@@ -27,10 +27,12 @@ export default class CreateOrdersProducts1607920128122
           {
             name: 'product_id',
             type: 'uuid',
+            isNullable: true,
           },
           {
             name: 'order_id',
             type: 'uuid',
+            isNullable: true,
           },
           {
             name: 'created_at',
@@ -49,16 +51,16 @@ export default class CreateOrdersProducts1607920128122
             referencedTableName: 'products',
             referencedColumnNames: ['id'],
             columnNames: ['product_id'],
-            onUpdate: 'CASCADE',
-            onDelete: 'CASCADE',
+            onUpdate: 'SET NULL',
+            onDelete: 'SET NULL',
           },
           {
             name: 'OrderId',
             referencedTableName: 'orders',
             referencedColumnNames: ['id'],
             columnNames: ['order_id'],
-            onUpdate: 'CASCADE',
-            onDelete: 'CASCADE',
+            onUpdate: 'SET NULL',
+            onDelete: 'SET NULL',
           },
         ],
       }),
@@ -66,6 +68,6 @@ export default class CreateOrdersProducts1607920128122
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('order_products');
+    await queryRunner.dropTable('orders_products');
   }
 }

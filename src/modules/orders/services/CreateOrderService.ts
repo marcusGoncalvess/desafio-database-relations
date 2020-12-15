@@ -16,7 +16,6 @@ interface IRequest {
   customer_id: string;
   products: IProduct[];
 }
-const order = await this.ormRepository.create({ customer_id: customer });
 
 @injectable()
 class CreateOrderService {
@@ -29,7 +28,51 @@ class CreateOrderService {
     private customersRepository: ICustomersRepository,
   ) {}
 
-  public async execute({ customer_id, products }: IRequest): Promise<Order> {}
+  public async execute({ customer_id, products }: IRequest): Promise<Order> {
+    const customer = await this.customersRepository.findById(customer_id);
+
+    if (!customer) {
+      throw new AppError('Customer does not exists.');
+    }
+
+    const productsFindedById = await this.productsRepository.findAllById(
+      products,
+    );
+
+    if (productsFindedById.length === 0) {
+      throw new AppError('Product does not exists.');
+    }
+
+    const verifyProducts = products.find((product, index) => {
+      if (product.quantity > productsFindedById[index].quantity) {
+        return true;
+      }
+    });
+
+    if (verifyProducts) {
+      throw new AppError('Quantity does not enough');
+    }
+
+    const quantityUpdated = products.map((product, index) => ({
+      id: product.id,
+      quantity: productsFindedById[index].quantity - product.quantity,
+    }));
+
+    await this.productsRepository.updateQuantity(quantityUpdated);
+
+    const newProducts = products.map((product, index) => ({
+      product_id: product.id,
+      price: productsFindedById[index].price,
+      quantity: product.quantity,
+    }));
+
+    const order = await this.ordersRepository.create({
+      customer,
+      products: newProducts,
+    });
+
+    return order;
+  }
 }
 
 export default CreateOrderService;
