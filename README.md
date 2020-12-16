@@ -10,7 +10,8 @@
 Esse módulo foi realmente muito completo, foi abortados muitos assuntos fantásticos, de começo, foi nos apresentado o DDD e TDD e adaptamos o projeto GoBarber 
 para usar esses dois, usamos também injeção de dependencias, aprendemos como usar os bancos mongoDB e também o Redis para armazenamento de cache. <br>
 Deixamos a API do GoBarber completinha, já usando o Amazon S3 para armazenamento de imagens e para envio de emails. <br>
-E para finalizar o módulo, tivemos o desafio onde colocamos em prática tudo que aprendemos no módulo. 😁 <br><br>
+E para finalizar o módulo, tivemos o desafio onde colocamos em prática tudo que aprendemos no módulo. 😁 <br>
+<img src="./github_assets/modulo.png"></img><br>
 Para mais detalhes sobre o desafio e que era precisa ser feito para ser passado em cada teste, você pode ver neste <a href="https://github.com/rocketseat-education/bootcamp-gostack-desafios/tree/master/desafio-database-relations">link</a>.
 
 ## 10/10 Testes Concluídos 🎯
